@@ -10,6 +10,18 @@ return {
     view = {
       width = 30,
     },
+    on_attach = function(bufnr)
+      local api = require('nvim-tree.api')
+
+      -- Default mappings
+      api.config.mappings.default_on_attach(bufnr)
+
+      -- Custom mapping: Ctrl-e to close NvimTree
+      vim.keymap.set('n', '<C-e>', api.tree.close, {
+        buffer = bufnr,
+        desc = 'Close NvimTree'
+      })
+    end,
     renderer = {
       group_empty = true,
       icons = {
