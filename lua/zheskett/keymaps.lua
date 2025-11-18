@@ -186,3 +186,13 @@ vim.keymap.set("x", "<leader>p", "\"_dP", { desc = "Paste Without Yanking" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous Diagnostic" })
 vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Show Diagnostic" })
+
+-- ============================================================================
+-- Codeium/Windsurf AI completion keybinds (configured in lazy/windsurf.lua)
+-- ============================================================================
+-- These are plugin configuration options, not vim keymaps
+-- <Tab>     - Accept suggestion
+-- <M-.>     - Accept line (Alt+.)
+-- <C-;>     - Clear suggestion (Ctrl+;)
+-- <M-]>     - Next suggestion (Alt+])
+-- <M-[>     - Previous suggestion (Alt+[)
