@@ -7,6 +7,7 @@ return {
   opts = {
     ensure_installed = {
       "lua_ls",
+      "clangd", -- C/C++ LSP with formatting support
     },
     handlers = {
       function(server_name)

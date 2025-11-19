@@ -157,13 +157,18 @@ wk.add({
 -- Some useful normal mode keymaps without leader
 vim.keymap.set("n", "<C-s>", "<cmd>w<cr>", { desc = "Save File" })
 vim.keymap.set("n", "<C-q>", "<cmd>q<cr>", { desc = "Quit" })
-vim.keymap.set("n", "<C-e>", "<cmd>NvimTreeToggle<cr>", { desc = "Toggle File Explorer" })
 
 -- Better window navigation
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Go to Left Window" })
-vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Go to Lower Window" })
-vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Go to Upper Window" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Go to Right Window" })
+
+-- Smooth scrolling (3 lines at a time)
+vim.keymap.set("n", "<C-e>", "3<C-e>", { desc = "Scroll Down 3 Lines" })
+vim.keymap.set("n", "<C-y>", "3<C-y>", { desc = "Scroll Up 3 Lines" })
+
+-- Quick 10-line movement
+vim.keymap.set("n", "<C-j>", "10j", { desc = "Move Down 10 Lines" })
+vim.keymap.set("n", "<C-k>", "10k", { desc = "Move Up 10 Lines" })
 
 -- Flash (quick jump to any location)
 vim.keymap.set({ "n", "x", "o" }, "s", function() require("flash").jump() end, { desc = "Flash Jump" })

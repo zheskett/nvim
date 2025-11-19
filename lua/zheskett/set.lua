@@ -4,10 +4,41 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   end,
 })
 
-vim.cmd.colorscheme("onedark")
+-- Auto-format C/C++ files on save using clang-format
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = { "*.c", "*.h", "*.cpp", "*.hpp" },
+  callback = function()
+    vim.lsp.buf.format({ async = false })
+  end,
+})
+
+-- Reset statuscolumn when leaving NvimTree
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function()
+    if vim.bo.filetype ~= "NvimTree" then
+      vim.wo.statuscolumn = "%s%=%{v:lnum} %{v:relnum} "
+    end
+  end,
+})
+
+-- Auto-close NvimTree if it's the last window
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "NvimTree_*",
+  callback = function()
+    local layout = vim.api.nvim_call_function("winlayout", {})
+    if layout[1] == "leaf" and vim.bo[vim.api.nvim_win_get_buf(layout[2])].filetype == "NvimTree" and layout[3] == nil then
+      vim.cmd("quit")
+    end
+  end,
+})
+
+vim.cmd.colorscheme("carbonfox")
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.nu = true
 vim.opt.relativenumber = true
+
+-- Show both absolute and relative line numbers
+vim.opt.statuscolumn = "%s%=%{v:lnum} %{v:relnum} "
 
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2

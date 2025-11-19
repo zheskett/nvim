@@ -9,6 +9,8 @@ return {
     },
     view = {
       width = 30,
+      number = true,
+      relativenumber = true,
     },
     on_attach = function(bufnr)
       local api = require('nvim-tree.api')
@@ -16,11 +18,8 @@ return {
       -- Default mappings
       api.config.mappings.default_on_attach(bufnr)
 
-      -- Custom mapping: Ctrl-e to close NvimTree
-      vim.keymap.set('n', '<C-e>', api.tree.close, {
-        buffer = bufnr,
-        desc = 'Close NvimTree'
-      })
+      -- Use single-column hybrid numbers in NvimTree
+      vim.wo[0].statuscolumn = "%s%=%{v:relnum?v:relnum:v:lnum} "
     end,
     renderer = {
       group_empty = true,
@@ -36,7 +35,6 @@ return {
     filters = {
       dotfiles = false, -- show hidden files
     },
-    -- Auto close when it's the last window
     actions = {
       open_file = {
         quit_on_open = false,
