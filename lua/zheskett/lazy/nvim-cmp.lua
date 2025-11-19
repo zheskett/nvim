@@ -24,8 +24,18 @@ return {
         end,
       },
       window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
+        completion = cmp.config.window.bordered({
+          max_height = 15,
+          max_width = 60,
+          border = "rounded",
+          winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+        }),
+        documentation = cmp.config.window.bordered({
+          max_height = 12,
+          max_width = 60,
+          border = "rounded",
+          winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
+        }),
       },
       mapping = cmp.mapping.preset.insert({
         -- Scroll docs
@@ -44,11 +54,20 @@ return {
         ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
       }),
       sources = cmp.config.sources({
-        { name = "nvim_lsp" },
-        { name = "luasnip" },
-        { name = "path" },
+        { name = "nvim_lsp", priority = 1000 },
+        { name = "luasnip", priority = 750 },
+        { name = "path", priority = 500 },
       }, {
-        { name = "buffer" },
+        {
+          name = "buffer",
+          priority = 250,
+          keyword_length = 3, -- Only suggest after typing 3 chars
+          option = {
+            get_bufnrs = function()
+              return { vim.api.nvim_get_current_buf() } -- Only current buffer, not all open buffers
+            end,
+          },
+        },
       }),
     })
   end,
