@@ -51,3 +51,9 @@ vim.opt.wrap = true
 vim.opt.linebreak = true -- Wrap at word boundaries
 vim.opt.incsearch = true
 vim.opt.termguicolors = true
+
+-- Folding settings
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldenable = false  -- Don't fold by default when opening files
+vim.opt.foldlevel = 99       -- High fold level so folds are open by default

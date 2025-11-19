@@ -11,6 +11,8 @@ local mappings = {
     b = { "<cmd>Telescope buffers<cr>", "Find Buffer" },
     h = { "<cmd>Telescope help_tags<cr>", "Help Tags" },
     r = { "<cmd>Telescope oldfiles<cr>", "Recent Files" },
+    s = { "<cmd>Telescope lsp_document_symbols<cr>", "Find Symbols" },
+    S = { "<cmd>Telescope lsp_workspace_symbols<cr>", "Find Workspace Symbols" },
   },
 
   -- File explorer
@@ -88,6 +90,21 @@ local mappings = {
     s = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Search in Buffer" },
     g = { "<cmd>Telescope live_grep<cr>", "Search in Project" },
   },
+
+  -- Debug operations
+  D = {
+    name = "Debug",
+    b = { function() require("dap").toggle_breakpoint() end, "Toggle Breakpoint" },
+    B = { function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, "Conditional Breakpoint" },
+    c = { function() require("dap").continue() end, "Continue" },
+    i = { function() require("dap").step_into() end, "Step Into" },
+    o = { function() require("dap").step_over() end, "Step Over" },
+    O = { function() require("dap").step_out() end, "Step Out" },
+    r = { function() require("dap").repl.open() end, "Open REPL" },
+    l = { function() require("dap").run_last() end, "Run Last" },
+    t = { function() require("dap").terminate() end, "Terminate" },
+    u = { function() require("dapui").toggle() end, "Toggle UI" },
+  },
 }
 
 -- Register with leader key
@@ -98,6 +115,8 @@ wk.add({
   { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find Buffer" },
   { "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Help Tags" },
   { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
+  { "<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Find Symbols" },
+  { "<leader>fS", "<cmd>Telescope lsp_workspace_symbols<cr>", desc = "Find Workspace Symbols" },
 
   { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Toggle File Explorer" },
 
@@ -152,6 +171,18 @@ wk.add({
   { "<leader>s", group = "Search" },
   { "<leader>ss", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Search in Buffer" },
   { "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "Search in Project" },
+
+  { "<leader>D", group = "Debug" },
+  { "<leader>Db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
+  { "<leader>DB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Conditional Breakpoint" },
+  { "<leader>Dc", function() require("dap").continue() end, desc = "Continue" },
+  { "<leader>Di", function() require("dap").step_into() end, desc = "Step Into" },
+  { "<leader>Do", function() require("dap").step_over() end, desc = "Step Over" },
+  { "<leader>DO", function() require("dap").step_out() end, desc = "Step Out" },
+  { "<leader>Dr", function() require("dap").repl.open() end, desc = "Open REPL" },
+  { "<leader>Dl", function() require("dap").run_last() end, desc = "Run Last" },
+  { "<leader>Dt", function() require("dap").terminate() end, desc = "Terminate" },
+  { "<leader>Du", function() require("dapui").toggle() end, desc = "Toggle UI" },
 })
 
 -- Some useful normal mode keymaps without leader
@@ -191,3 +222,16 @@ vim.keymap.set("x", "<leader>p", "\"_dP", { desc = "Paste Without Yanking" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous Diagnostic" })
 vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Show Diagnostic" })
+
+-- Function keys for debugging (standard across most IDEs)
+vim.keymap.set("n", "<F5>", function() require("dap").continue() end, { desc = "Debug: Start/Continue" })
+vim.keymap.set("n", "<F10>", function() require("dap").step_over() end, { desc = "Debug: Step Over" })
+vim.keymap.set("n", "<F11>", function() require("dap").step_into() end, { desc = "Debug: Step Into" })
+vim.keymap.set("n", "<F12>", function() require("dap").step_out() end, { desc = "Debug: Step Out" })
+vim.keymap.set("n", "<F9>", function() require("dap").toggle_breakpoint() end, { desc = "Debug: Toggle Breakpoint" })
+
+-- Window resizing with Ctrl+Shift+Arrow keys
+vim.keymap.set("n", "<C-S-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
+vim.keymap.set("n", "<C-S-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
+vim.keymap.set("n", "<C-S-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
+vim.keymap.set("n", "<C-S-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
