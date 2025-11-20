@@ -10,6 +10,7 @@ return {
   opts = {
     lsp_cfg = true, -- use go.nvim will setup gopls
     lsp_keymaps = false, -- disable default keymaps to prevent conflicts
+    lsp_inlay_hints = { enable = false }, -- disable inlay hints by default
   },
   config = function(_, opts)
     require("go").setup(opts)

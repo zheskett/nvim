@@ -82,21 +82,18 @@ wk.add({
   { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
   { "<leader>du", function() require("dapui").toggle() end, desc = "Toggle UI" },
 
-  -- Windsurf/Codeium AI Code Completion
+  -- Supermaven AI Code Completion
   -- Comment out this section to disable these keybinds
   { "<leader>c", group = "Code AI" },
-  { "<leader>ct", "<cmd>Codeium Toggle<cr>", desc = "Toggle AI Suggestions" },
-  { "<leader>ce", "<cmd>Codeium Enable<cr>", desc = "Enable AI Suggestions" },
-  { "<leader>cd", "<cmd>Codeium Disable<cr>", desc = "Disable AI Suggestions" },
+  { "<leader>ct", "<cmd>SupermavenToggle<cr>", desc = "Toggle AI Suggestions" },
+  { "<leader>cs", "<cmd>SupermavenShowLog<cr>", desc = "Show Supermaven Log" },
 })
 
 --[[
-Windsurf Insert Mode Keybinds (configured in lua/zheskett/lazy/windsurf.lua):
+Supermaven Insert Mode Keybinds (configured in lua/zheskett/lazy/supermaven.lua):
   <Tab>      - Accept suggestion
-  <M-.>      - Accept line (Alt+.)
+  <M-.>      - Accept word (Alt+.)
   <C-;>      - Clear suggestion (Ctrl+;)
-  <M-]>      - Next suggestion (Alt+])
-  <M-[>      - Previous suggestion (Alt+[)
 --]]
 
 -- Some useful normal mode keymaps without leader
