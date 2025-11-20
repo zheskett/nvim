@@ -23,12 +23,13 @@ return {
     end,
     renderer = {
       group_empty = true,
+      highlight_git = "name", -- highlight git status in filename
       icons = {
         show = {
           file = true,
           folder = true,
           folder_arrow = true,
-          git = true,
+          git = false, -- don't show git status icons
         },
       },
     },

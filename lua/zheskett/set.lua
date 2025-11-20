@@ -3,6 +3,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     vim.api.nvim_set_hl(0, "CodeiumSuggestion", { fg = "#808080" })
     -- Make visual selection more visible in carbonfox
     vim.api.nvim_set_hl(0, "Visual", { bg = "#4a5568", fg = "NONE" })
+    -- Grey out git ignored files in nvim-tree
+    vim.api.nvim_set_hl(0, "NvimTreeGitIgnored", { fg = "#6b7280" })
   end,
 })
 
