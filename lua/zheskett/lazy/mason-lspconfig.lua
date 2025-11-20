@@ -8,6 +8,7 @@ return {
     ensure_installed = {
       "lua_ls",
       "clangd", -- C/C++ LSP with formatting support
+      "gopls",  -- Go LSP with formatting and diagnostics
     },
     handlers = {
       function(server_name)

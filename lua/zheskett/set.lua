@@ -64,6 +64,7 @@ vim.opt.termguicolors = true
 
 -- Folding settings
 vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldenable = false  -- Don't fold by default when opening files
 vim.opt.foldlevel = 99       -- High fold level so folds are open by default
+vim.opt.foldtext = ""        -- Use treesitter for fold text
