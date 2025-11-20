@@ -6,6 +6,14 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   end,
 })
 
+-- Treat .h files as C (not C++)
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.h",
+  callback = function()
+    vim.bo.filetype = "c"
+  end,
+})
+
 -- Auto-format C/C++ files on save using clang-format
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = { "*.c", "*.h", "*.cpp", "*.hpp" },
