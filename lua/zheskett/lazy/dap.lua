@@ -19,7 +19,7 @@ return {
       -- Setup Mason-DAP to automatically install debug adapters
       require("mason-nvim-dap").setup({
         -- Automatically install these debug adapters
-        ensure_installed = { "codelldb" }, -- codelldb works for C/C++/Rust
+        ensure_installed = { "codelldb", "delve" }, -- codelldb for C/C++/Rust, delve for Go
         automatic_installation = true,
         handlers = {}, -- Use default handlers
       })

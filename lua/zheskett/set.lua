@@ -16,9 +16,9 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   end,
 })
 
--- Auto-format C/C++ files on save using clang-format
+-- Auto-format on save for C/C++/Go
 vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = { "*.c", "*.h", "*.cpp", "*.hpp" },
+  pattern = { "*.c", "*.h", "*.cpp", "*.hpp", "*.go" },
   callback = function()
     vim.lsp.buf.format({ async = false })
   end,
