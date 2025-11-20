@@ -17,6 +17,14 @@ return {
           types = "italic,bold",
         },
       },
+      groups = {
+        all = {
+          PreProc = { fg = "#da70d6" },      -- Bright purple preprocessor directives
+          ["@preproc"] = { fg = "#da70d6" }, -- Bright purple Treesitter preprocessor
+          Function = { fg = "#ffd787" },     -- Bright yellow functions
+          ["@function"] = { fg = "#ffd787" }, -- Bright yellow Treesitter functions
+        },
+      },
     })
   end,
 }
