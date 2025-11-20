@@ -6,7 +6,11 @@ return {
     'neovim/nvim-lspconfig',
     'mason-org/mason-lspconfig.nvim',
   },
-  opts = { lsp_cfg = true }, -- use go.nvim will setup gopls
+  ft = { "go", "gomod" }, -- only load for Go files
+  opts = {
+    lsp_cfg = true, -- use go.nvim will setup gopls
+    lsp_keymaps = false, -- disable default keymaps to prevent conflicts
+  },
   config = function(_, opts)
     require("go").setup(opts)
     --
