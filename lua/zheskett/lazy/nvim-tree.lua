@@ -34,6 +34,7 @@ return {
     },
     filters = {
       dotfiles = false, -- show hidden files
+      custom = { ".DS_Store", ".git" }, -- hide macOS system files and git
     },
     actions = {
       open_file = {
