@@ -24,6 +24,7 @@ return {
     renderer = {
       group_empty = true,
       highlight_git = "name", -- highlight git status in filename
+      root_folder_label = ":t", -- show only folder name, not full path
       icons = {
         show = {
           file = true,
