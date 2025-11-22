@@ -99,6 +99,7 @@ Supermaven Insert Mode Keybinds (configured in lua/zheskett/lazy/supermaven.lua)
 -- Some useful normal mode keymaps without leader
 vim.keymap.set("n", "<C-s>", "<cmd>w<cr>", { desc = "Save File" })
 vim.keymap.set("n", "<C-q>", "<cmd>q<cr>", { desc = "Quit" })
+vim.keymap.set("n", "ZS", "<cmd>up<cr>", { desc = "Save File (if modified)" })
 
 -- Better window navigation
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Go to Left Window" })

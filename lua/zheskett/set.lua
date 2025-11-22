@@ -46,6 +46,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 vim.cmd.colorscheme("carbonfox")
 vim.opt.clipboard = 'unnamedplus'
+vim.opt.mouse = 'a' -- Enable mouse support for clicking scrollbar
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
