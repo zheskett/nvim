@@ -1,13 +1,3 @@
-vim.api.nvim_create_autocmd("ColorScheme", {
-  callback = function()
-    vim.api.nvim_set_hl(0, "CodeiumSuggestion", { fg = "#808080" })
-    -- Make visual selection more visible in carbonfox
-    vim.api.nvim_set_hl(0, "Visual", { bg = "#4a5568", fg = "NONE" })
-    -- Grey out git ignored files in nvim-tree
-    vim.api.nvim_set_hl(0, "NvimTreeGitIgnored", { fg = "#6b7280" })
-  end,
-})
-
 -- Treat .h files as C (not C++)
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = "*.h",
@@ -33,20 +23,8 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end,
 })
 
--- Auto-close NvimTree if it's the last window
-vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = "NvimTree_*",
-  callback = function()
-    local layout = vim.api.nvim_call_function("winlayout", {})
-    if layout[1] == "leaf" and vim.bo[vim.api.nvim_win_get_buf(layout[2])].filetype == "NvimTree" and layout[3] == nil then
-      vim.cmd("quit")
-    end
-  end,
-})
-
-vim.cmd.colorscheme("carbonfox")
+vim.cmd.colorscheme("onedark")
 vim.opt.clipboard = 'unnamedplus'
-vim.opt.mouse = 'a' -- Enable mouse support for clicking scrollbar
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
