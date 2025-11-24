@@ -70,6 +70,10 @@ wk.add({
   { "<leader>ss", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Search in Buffer" },
   { "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "Search in Project" },
 
+  { "<leader>z", group = "Fold" },
+  { "<leader>zc", "<cmd>%foldclose<cr>", desc = "Close All Folds" },
+  { "<leader>zo", "<cmd>%foldopen<cr>", desc = "Open All Folds" },
+
   { "<leader>d", group = "Debug" },
   { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
   { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Conditional Breakpoint" },
