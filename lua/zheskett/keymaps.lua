@@ -12,10 +12,75 @@ wk.add({
   { "<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Find Symbols" },
   { "<leader>fS", "<cmd>Telescope lsp_workspace_symbols<cr>", desc = "Find Workspace Symbols" },
 
-  { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Toggle File Explorer" },
+  { "<leader>e", group = "Explorer" },
+  { "<leader>ee", "<cmd>NvimTreeFocus<cr>", desc = "Focus NvimTree" },
+  { "<leader>ec", "<cmd>NvimTreeClose<cr>", desc = "Close NvimTree" },
+  { "<leader>eo", function()
+      local view = require("nvim-tree.view")
+      if not view.is_visible() then
+        vim.cmd("NvimTreeOpen")
+        -- Return focus to previous window
+        vim.cmd("wincmd p")
+      end
+    end, desc = "Open NvimTree (Keep Focus)" },
+  { "<leader>ed", function()
+      local path = vim.fn.input("Change directory to: ", "", "dir")
+      if path ~= "" then
+        -- Expand path (handles ~, ., .., etc)
+        path = vim.fn.fnamemodify(path, ":p")
+        -- Close NvimTree if open
+        vim.cmd("NvimTreeClose")
+        -- Change Neovim's working directory
+        vim.cmd("cd " .. vim.fn.fnameescape(path))
+        -- Open NvimTree at the new path using the API
+        require("nvim-tree.api").tree.open({ path = path })
+      end
+    end, desc = "Change Directory" },
 
   { "<leader>b", group = "Buffer" },
-  { "<leader>bd", "<cmd>bd<cr>", desc = "Delete Buffer" },
+  { "<leader>bd", function()
+      local bufnum = vim.api.nvim_get_current_buf()
+
+      -- Get list of normal buffers (exclude NvimTree, etc)
+      local bufs = vim.tbl_filter(function(b)
+        return vim.bo[b].buflisted and vim.api.nvim_buf_is_valid(b)
+      end, vim.api.nvim_list_bufs())
+
+      -- If there are other buffers, switch to previous first
+      if #bufs > 1 then
+        vim.cmd("bprevious")
+      end
+
+      -- Delete the original buffer by number
+      vim.api.nvim_buf_delete(bufnum, { force = false })
+    end, desc = "Delete Buffer" },
+  { "<leader>bD", function()
+      -- Get all listed buffers
+      local bufs = vim.tbl_filter(function(b)
+        return vim.bo[b].buflisted and vim.api.nvim_buf_is_valid(b)
+      end, vim.api.nvim_list_bufs())
+
+      -- Delete all buffers
+      for _, bufnr in ipairs(bufs) do
+        vim.api.nvim_buf_delete(bufnr, { force = false })
+      end
+
+      -- Create a new empty buffer
+      vim.cmd("enew")
+    end, desc = "Delete All Buffers" },
+  { "<leader>bo", function()
+      local current = vim.api.nvim_get_current_buf()
+
+      -- Get all listed buffers except current
+      local bufs = vim.tbl_filter(function(b)
+        return vim.bo[b].buflisted and vim.api.nvim_buf_is_valid(b) and b ~= current
+      end, vim.api.nvim_list_bufs())
+
+      -- Delete all other buffers
+      for _, bufnr in ipairs(bufs) do
+        vim.api.nvim_buf_delete(bufnr, { force = false })
+      end
+    end, desc = "Delete Other Buffers" },
   { "<leader>bn", "<cmd>bnext<cr>", desc = "Next Buffer" },
   { "<leader>bp", "<cmd>bprevious<cr>", desc = "Previous Buffer" },
   { "<leader>bl", "<cmd>Telescope buffers<cr>", desc = "List Buffers" },
