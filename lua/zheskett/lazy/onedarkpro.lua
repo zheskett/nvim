@@ -10,7 +10,7 @@ return {
     require("onedarkpro").setup({
       colors = {
         red = helpers.lighten(colors.red, 10),
-        dark_red = helpers.darken(colors.red, 10),
+        dark_red = helpers.darken(colors.red, 5),
         orange = helpers.darken(colors.orange, 15),
       },
       highlights = {
