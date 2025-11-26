@@ -20,6 +20,7 @@ return {
         ["@variable.builtin"] = { fg = "${dark_red}" },
         ["@lsp.typemod.variable.readonly.c"] = { fg = "${dark_red}" },
         ["@lsp.typemod.parameter.readonly.c"] = { fg = "${dark_red}" },
+        ["@constant.go"] = { fg = "${dark_red}" },
         Operator = { fg = "${white}" },
         ["@operator"] = { fg = "${white}" },
         ["@operator.go"] = { fg = "${white}" },
