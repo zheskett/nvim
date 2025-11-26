@@ -164,17 +164,20 @@ wk.add({
 
   -- Supermaven AI Code Completion
   -- Comment out this section to disable these keybinds
-  { "<leader>c", group = "Code AI" },
-  { "<leader>ct", "<cmd>SupermavenToggle<cr>", desc = "Toggle AI Suggestions" },
-  { "<leader>cs", "<cmd>SupermavenShowLog<cr>", desc = "Show Supermaven Log" },
+  { "<leader>a", group = "Code AI" },
+  { "<leader>ae", function() require("supermaven-nvim.api").start() end, desc = "Enable AI Suggestions" },
+  { "<leader>ad", function() require("supermaven-nvim.api").stop() end, desc = "Disable AI Suggestions" },
 })
 
---[[
-Supermaven Insert Mode Keybinds (configured in lua/zheskett/lazy/supermaven.lua):
-  <Tab>      - Accept suggestion
-  <M-.>      - Accept word (Alt+.)
-  <C-;>      - Clear suggestion (Ctrl+;)
---]]
+-- Smart append
+vim.keymap.set("n", "a", function()
+  local line_length = vim.api.nvim_buf_get_lines(0, vim.fn.line(".") - 1, vim.fn.line("."), false)[1]:len()
+  if line_length > 0 then
+    return "a"
+  else
+    return "\"_cc"
+  end
+end, { expr = true, desc = "Smart Append" })
 
 -- Some useful normal mode keymaps without leader
 vim.keymap.set("n", "<C-s>", "<cmd>w<cr>", { desc = "Save File" })
