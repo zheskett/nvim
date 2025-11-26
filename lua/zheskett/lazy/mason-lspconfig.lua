@@ -19,6 +19,18 @@ return {
           capabilities = capabilities,
         })
       end,
+      -- Custom handler for gopls
+      ["gopls"] = function()
+        local capabilities = require("cmp_nvim_lsp").default_capabilities()
+        require("lspconfig").gopls.setup({
+          capabilities = capabilities,
+          settings = {
+            gopls = {
+              semanticTokens = true,
+            },
+          },
+        })
+      end,
       -- Custom handler for pyright to ensure proper venv detection
       ["pyright"] = function()
         local capabilities = require("cmp_nvim_lsp").default_capabilities()
