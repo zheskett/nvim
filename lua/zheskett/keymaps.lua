@@ -10,7 +10,7 @@ wk.add({
   { "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Help Tags" },
   { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
   { "<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Find Symbols" },
-  { "<leader>fS", "<cmd>Telescope lsp_workspace_symbols<cr>", desc = "Find Workspace Symbols" },
+  { "<leader>fw", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>", desc = "Find Workspace Symbols" },
 
   { "<leader>e", group = "Explorer" },
   { "<leader>ee", "<cmd>NvimTreeFocus<cr>", desc = "Focus NvimTree" },
@@ -83,7 +83,8 @@ wk.add({
     end, desc = "Delete Other Buffers" },
   { "<leader>bn", "<cmd>bnext<cr>", desc = "Next Buffer" },
   { "<leader>bp", "<cmd>bprevious<cr>", desc = "Previous Buffer" },
-  { "<leader>bl", "<cmd>Telescope buffers<cr>", desc = "List Buffers" },
+  { "<leader>bh", "<cmd>BufferLineMovePrev<cr>", desc = "Move Buffer Left" },
+  { "<leader>bl", "<cmd>BufferLineMoveNext<cr>", desc = "Move Buffer Right" },
 
   { "<leader>w", group = "Window" },
   { "<leader>wh", "<C-w>h", desc = "Move to Left Window" },
@@ -139,6 +140,13 @@ wk.add({
   { "<leader>zc", "<cmd>%foldclose<cr>", desc = "Close All Folds" },
   { "<leader>zo", "<cmd>%foldopen<cr>", desc = "Open All Folds" },
 
+  { "<leader>_", group = "Black Hole Register" },
+  { "<leader>_d", "\"_d", desc = "Delete Without Yank", mode = { "n", "v" } },
+  { "<leader>_D", "\"_D", desc = "Delete Line Without Yank", mode = { "n", "v" } },
+  { "<leader>_c", "\"_c", desc = "Change Without Yank", mode = { "n", "v" } },
+  { "<leader>_C", "\"_C", desc = "Change Line Without Yank", mode = { "n", "v" } },
+  { "<leader>_x", "\"_x", desc = "Cut Char Without Yank", mode = { "n", "v" } },
+
   { "<leader>d", group = "Debug" },
   { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
   { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Conditional Breakpoint" },
@@ -150,6 +158,9 @@ wk.add({
   { "<leader>dl", function() require("dap").run_last() end, desc = "Run Last" },
   { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
   { "<leader>du", function() require("dapui").toggle() end, desc = "Toggle UI" },
+
+  { "<leader>v", group = "View/Preview" },
+  { "<leader>vm", "<cmd>MarkdownPreviewToggle<cr>", desc = "Markdown Preview" },
 
   -- Supermaven AI Code Completion
   -- Comment out this section to disable these keybinds
@@ -170,9 +181,6 @@ vim.keymap.set("n", "<C-s>", "<cmd>w<cr>", { desc = "Save File" })
 vim.keymap.set("n", "<C-q>", "<cmd>q<cr>", { desc = "Quit" })
 vim.keymap.set("n", "ZS", "<cmd>up<cr>", { desc = "Save File (if modified)" })
 
--- Better window navigation
-vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Go to Left Window" })
-vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Go to Right Window" })
 
 -- Smooth scrolling (3 lines at a time)
 vim.keymap.set("n", "<C-e>", "3<C-e>", { desc = "Scroll Down 3 Lines" })

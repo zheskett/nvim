@@ -10,6 +10,7 @@ return {
       "clangd",  -- C/C++ LSP with formatting support
       "gopls",   -- Go LSP with formatting and diagnostics
       "pyright", -- Python LSP with type checking
+      "marksman", -- Markdown LSP
     },
     handlers = {
       function(server_name)

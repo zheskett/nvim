@@ -47,11 +47,43 @@ return {
         ["<C-k>"] = cmp.mapping.select_prev_item(),
 
         -- Open/close completion menu
-        ["<C-Space>"] = cmp.mapping.complete(), 
+        ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.abort(),
 
-        -- Confirm completion
-        ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        -- Tab: If something selected in cmp → accept it
+        --      Else if supermaven has suggestion → accept supermaven
+        --      Else if cmp visible → accept first option
+        --      Else → fallback
+        ["<Tab>"] = cmp.mapping(function(fallback)
+          local suggestion_state = require("supermaven-nvim.completion_preview")
+          if cmp.visible() and cmp.get_selected_entry() then
+            cmp.confirm({ select = false })
+          elseif suggestion_state.has_suggestion() then
+            fallback() -- Let Supermaven handle it
+          elseif cmp.visible() then
+            cmp.confirm({ select = true })
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+
+        -- Shift+Tab: Always accept completion menu item
+        ["<S-Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.confirm({ select = true })
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+
+        -- Enter: Only confirm if something is manually selected with C-j/C-k
+        ["<CR>"] = cmp.mapping(function(fallback)
+          if cmp.visible() and cmp.get_selected_entry() then
+            cmp.confirm({ select = false })
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
       }),
       sources = cmp.config.sources({
         { name = "nvim_lsp", priority = 1000 },

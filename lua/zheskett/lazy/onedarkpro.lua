@@ -5,12 +5,13 @@ return {
 
   config = function()
     local helpers = require("onedarkpro.helpers")
+    local colors = require("onedarkpro.helpers").get_colors("onedark")
 
     require("onedarkpro").setup({
       colors = {
-        red = helpers.lighten("red", 5, "onedark"),
-        dark_red = helpers.darken("red", 10, "onedark"),
-        orange = helpers.darken("orange", 15, "onedark"),
+        red = helpers.lighten(colors.red, 10),
+        dark_red = helpers.darken(colors.red, 10),
+        orange = helpers.darken(colors.orange, 15),
       },
       highlights = {
         Constant = { fg = "${dark_red}" },
@@ -21,7 +22,9 @@ return {
         ["@lsp.typemod.parameter.readonly.c"] = { fg = "${dark_red}" },
         Operator = { fg = "${white}" },
         ["@operator"] = { fg = "${white}" },
+        ["@operator.go"] = { fg = "${white}" },
         ["@punctuation.special"] = { fg = "${white}" },
+        LineNr = { fg = helpers.brighten(colors.line_number, 20) },
       },
       styles = {
         comments = "italic",

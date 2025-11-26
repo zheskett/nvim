@@ -47,3 +47,12 @@ vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldenable = false  -- Don't fold by default when opening files
 vim.opt.foldlevel = 99       -- High fold level so folds are open by default
 vim.opt.foldtext = ""        -- Use treesitter for fold text
+
+-- Diagnostic settings - show inline error messages
+vim.diagnostic.config({
+  virtual_text = true,  -- Show diagnostic messages inline
+  signs = true,
+  underline = true,
+  update_in_insert = false,  -- Don't show diagnostics while typing
+  severity_sort = true,  -- Show errors before warnings
+})
