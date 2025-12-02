@@ -26,7 +26,19 @@ return {
       current_only = false,
       winblend = 0,
       zindex = 40,
-      excluded_filetypes = {},
+      excluded_filetypes = {
+        "NvimTree",
+        "TelescopePrompt",
+        "lazy",
+        "mason",
+        "help",
+        "toggleterm",
+        "dapui_scopes",
+        "dapui_breakpoints",
+        "dapui_stacks",
+        "dapui_watches",
+        "dap-repl",
+      },
       width = 2,
       handlers = {
         cursor = {

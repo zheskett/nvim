@@ -78,6 +78,40 @@ return {
       -- Also use the same configuration for C++
       dap.configurations.cpp = dap.configurations.c
 
+      -- Configure delve adapter for Go debugging (installed via Mason)
+      dap.adapters.delve = {
+        type = "server",
+        port = "${port}",
+        executable = {
+          command = vim.fn.stdpath("data") .. "/mason/bin/dlv",
+          args = { "dap", "-l", "127.0.0.1:${port}" },
+        },
+      }
+
+      -- Configure how to debug Go programs
+      dap.configurations.go = {
+        {
+          type = "delve",
+          name = "Debug",
+          request = "launch",
+          program = "${file}",
+        },
+        {
+          type = "delve",
+          name = "Debug test",
+          request = "launch",
+          mode = "test",
+          program = "${file}",
+        },
+        {
+          type = "delve",
+          name = "Debug test (go.mod)",
+          request = "launch",
+          mode = "test",
+          program = "./${relativeFileDirname}",
+        },
+      }
+
       -- Automatically open/close the DAP UI when debugging starts/ends
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open()

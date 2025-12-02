@@ -112,6 +112,7 @@ wk.add({
   { "<leader>xp", vim.diagnostic.goto_prev, desc = "Previous Diagnostic" },
   { "<leader>xl", vim.diagnostic.setloclist, desc = "Diagnostics to Location List" },
   { "<leader>xa", "<cmd>Telescope diagnostics<cr>", desc = "All Diagnostics" },
+  { "<leader>xw", function() _G.add_to_codespell_dict() end, desc = "Add Word to Dictionary" },
 
   { "<leader>g", group = "Git" },
   { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
@@ -161,6 +162,17 @@ wk.add({
 
   { "<leader>v", group = "View/Preview" },
   { "<leader>vm", "<cmd>MarkdownPreviewToggle<cr>", desc = "Markdown Preview" },
+  { "<leader>vr", function()
+    vim.cmd("redraw!")
+    local ok, satellite = pcall(require, "satellite")
+    if ok and satellite then
+      -- Try to force refresh by disabling and re-enabling
+      pcall(satellite.disable)
+      vim.defer_fn(function()
+        pcall(satellite.enable)
+      end, 100)
+    end
+  end, desc = "Refresh Scrollbar" },
 
   -- Supermaven AI Code Completion
   -- Comment out this section to disable these keybinds
@@ -184,6 +196,22 @@ vim.keymap.set("n", "<C-s>", "<cmd>w<cr>", { desc = "Save File" })
 vim.keymap.set("n", "<C-q>", "<cmd>q<cr>", { desc = "Quit" })
 vim.keymap.set("n", "ZS", "<cmd>up<cr>", { desc = "Save File (if modified)" })
 
+-- Refresh screen and clear visual artifacts
+vim.keymap.set("n", "<C-l>", function()
+  vim.cmd("nohlsearch")  -- Clear search highlighting
+  vim.cmd("diffupdate")  -- Update diff
+  -- Refresh satellite by toggling it
+  local ok, satellite = pcall(require, "satellite")
+  if ok and satellite then
+    pcall(satellite.disable)
+  end
+  vim.cmd("redraw!")  -- Force complete screen redraw
+  if ok and satellite then
+    vim.defer_fn(function()
+      pcall(satellite.enable)
+    end, 100)
+  end
+end, { desc = "Refresh Screen" })
 
 -- Smooth scrolling (3 lines at a time)
 vim.keymap.set("n", "<C-e>", "3<C-e>", { desc = "Scroll Down 3 Lines" })

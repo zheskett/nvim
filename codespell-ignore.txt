@@ -1,0 +1,8 @@
+# codespell ignore words
+# Add one word per line (lowercase)
+# Example words that might be false positives:
+nvim
+neovim
+gopls
+lsp
+te
